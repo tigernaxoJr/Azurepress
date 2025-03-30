@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>湛柏科技 - 創新軟體解決方案</title>
+    <style>
+        :root {
+            --primary: #0066cc;
+            --secondary: #00aaff;
+            --dark: #333;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --gray: #6c757d;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Microsoft JhengHei', 'Tahoma', 'Geneva', 'Verdana', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--white);
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin-left: 2rem;
+        }
+        
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--light);
+        }
+        
+        .hero {
+            background-image: url('/api/placeholder/1200/600');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+        
+        .hero-content {
+            position: relative;
+            color: var(--white);
+            max-width: 700px;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-text {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+            margin-left: 1rem;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--white);
+            color: var(--primary);
+        }
+        
+        section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .products {
+            background-color: var(--white);
+        }
+        
+        .product-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .product-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-content {
+            padding: 2rem;
+        }
+        
+        .product-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .product-text {
+            margin-bottom: 1.5rem;
+            color: var(--gray);
+        }
+        
+        .product-features {
+            margin: 1.5rem 0;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-icon {
+            background-color: var(--primary);
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+        
+        .cta {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: var(--white);
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-text {
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 3rem 0;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-contact-icon {
+            margin-right: 1rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-link {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-link a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-link a:hover {
+            color: var(--secondary);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                order: -1;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">湛柏科技</a>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#" class="nav-link">首頁</a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link">關於我們</a></li>
+                    <li class="nav-item"><a href="#products" class="nav-link">產品服務</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">聯絡我們</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">創新科技解決方案</h1>
+                <p class="hero-text">湛柏科技致力於提供企業最優質的軟體開發服務，讓您的業務運作更有效率。</p>
+                <div class="hero-buttons">
+                    <a href="#products" class="btn btn-primary">探索產品</a>
+                    <a href="#contact" class="btn btn-outline">聯絡我們</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">關於湛柏科技</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>湛柏科技是一家專注於軟體開發的科技公司，我們致力於為企業提供創新、高效且易於使用的軟體解決方案。</p>
+                    <p>我們的使命是通過技術創新，簡化企業的日常運作流程，提高工作效率，降低人力成本，讓您的企業在數位時代保持競爭力。</p>
+                    <p>我們的專業團隊擁有豐富的軟體開發經驗，能夠根據客戶的需求，提供客製化的解決方案，幫助企業解決實際問題。</p>
+                </div>
+                <div class="about-image">
+                    <img src="/api/placeholder/600/400" alt="湛柏科技辦公環境">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <h2 class="section-title">產品服務</h2>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="/api/placeholder/800/400" alt="Jform 萬用表單系統">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Jform 萬用表單系統</h3>
+                    <p class="product-text">
+                        Jform 能讓 IT 人員提供 HTML 及經過簡單設定就能產生表單讓使用者填寫，不需要為每一張表單撰寫後端程式、設計資料表，從而已倍數減少相當百分比的開發、維護人力，採用這個系統的公司能夠有效減少人員花費。
+                    </p>
+                    <div class="product-features">
+                        <h4>主要功能</h4>
+                        <div class="feature-item">
+                            <div class="feature-icon">✓</div>
+                            <div>系統可設定在使用者提交表單時透過 webhook 通知其他系統實現系統介接</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">✓</div>
+                            <div>可以直接針對填寫完成的表單拿到 JSON 資料方便作物件關聯對應以分析</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">✓</div>
+                            <div>可透過簡易設定就能讓表單存取其他資料庫的資料並自動回填表格，不需要撰寫 API 和 AJAX</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">✓</div>
+                            <div>可透過簡易設定實現在表單內新增不同的明細的檔而不需要再為各明細檔撰寫程式和開立表格</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">✓</div>
+                            <div>內建 Anti CSRF Token 保護</div>
+                        </div>
+                    </div>
+                    <a href="#contact" class="btn btn-primary">了解更多</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" class="cta">
+        <div class="container">
+            <h2 class="cta-title">準備好為您的企業提升效率了嗎？</h2>
+            <p class="cta-text">
+                湛柏科技的軟體解決方案能夠幫助您減少開發成本、提高工作效率、簡化業務流程。立即聯繫我們，了解我們如何能夠為您的企業創造價值。
+            </p>
+            <a href="#contact" class="btn btn-outline">立即聯繫</a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">聯絡我們</h2>
+            <div class="contact-form">
+                <form>
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="flex: 1;">
+                            <label for="name" style="display: block; margin-bottom: 0.5rem;">姓名</label>
+                            <input type="text" id="name" name="name" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px;" required>
+                        </div>
+                        <div style="flex: 1;">
+                            <label for="email" style="display: block; margin-bottom: 0.5rem;">電子郵件</label>
+                            <input type="email" id="email" name="email" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px;" required>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <label for="subject" style="display: block; margin-bottom: 0.5rem;">主旨</label>
+                        <input type="text" id="subject" name="subject" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px;" required>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <label for="message" style="display: block; margin-bottom: 0.5rem;">訊息</label>
+                        <textarea id="message" name="message" rows="5" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px;" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="border: none;">送出訊息</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">湛柏科技</h3>
+                    <p>提供創新軟體解決方案，幫助企業提高效率，降低成本。</p>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">聯絡資訊</h3>
+                    <div class="footer-contact-item">
+                        <span class="footer-contact-icon">📍</span>
+                        <span>台中市龍井區中港路九段377號</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span class="footer-contact-icon">📞</span>
+                        <span>04-XXXX-XXXX</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span class="footer-contact-icon">✉️</span>
+                        <span>contact@zhanbo-tech.com</span>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">快速連結</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">首頁</a></li>
+                        <li class="footer-link"><a href="#about">關於我們</a></li>
+                        <li class="footer-link"><a href="#products">產品服務</a></li>
+                        <li class="footer-link"><a href="#contact">聯絡我們</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 湛柏科技. 版權所有.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FormFlex - 萬用表單系統</title>
+  <style>
+    :root {
+      --primary: #3498db;
+      --secondary: #2c3e50;
+      --accent: #1abc9c;
+      --light: #ecf0f1;
+      --dark: #2c3e50;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+    
+    body {
+      background-color: #f9f9f9;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    
+    /* 導航欄 */
+    header {
+      background-color: white;
+      box-shadow: var(--shadow);
+      position: fixed;
+      width: 100%;
+      z-index: 100;
+    }
+    
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+    
+    .logo-icon {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+      background-color: var(--primary);
+      border-radius: 5px;
+      position: relative;
+    }
+    
+    .logo-icon::before, .logo-icon::after {
+      content: '';
+      position: absolute;
+      background-color: white;
+    }
+    
+    .logo-icon::before {
+      width: 60%;
+      height: 2px;
+      top: 40%;
+      left: 20%;
+    }
+    
+    .logo-icon::after {
+      width: 60%;
+      height: 8px;
+      bottom: 20%;
+      left: 20%;
+      border-radius: 1px;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin-left: 30px;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+    
+    .cta-btn {
+      background-color: var(--primary);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: background-color 0.3s;
+    }
+    
+    .cta-btn:hover {
+      background-color: #2980b9;
+      color: white;
+    }
+    
+    /* 英雄區塊 */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+    
+    .hero-content {
+      width: 50%;
+      z-index: 1;
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      color: #555;
+    }
+    
+    .hero-btns {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .hero-btn {
+      padding: 12px 30px;
+      border-radius: 4px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    
+    .primary-btn {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .primary-btn:hover {
+      background-color: #2980b9;
+    }
+    
+    .secondary-btn {
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+    
+    .secondary-btn:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .hero-image {
+      width: 50%;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    
+    /* 特色區塊 */
+    .features {
+      padding: 100px 0;
+      background-color: white;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .section-header h2 {
+      font-size: 2.5rem;
+      color: var(--dark);
+      margin-bottom: 15px;
+    }
+    
+    .section-header p {
+      color: #777;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .feature-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 30px;
+      transition: transform 0.3s;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background-color: rgba(52, 152, 219, 0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    
+    .feature-icon svg {
+      width: 30px;
+      height: 30px;
+      fill: var(--primary);
+    }
+    
+    .feature-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      color: var(--dark);
+    }
+    
+    /* 關於區塊 */
+    .about {
+      padding: 100px 0;
+      background-color: #f9f9f9;
+    }
+    
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    
+    .about-image {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    
+    .about-image img {
+      width: 100%;
+      display: block;
+    }
+    
+    .about-content h2 {
+      font-size: 2.5rem;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+    
+    .about-content p {
+      margin-bottom: 20px;
+      color: #555;
+    }
+    
+    /* 產品區塊 */
+    .products {
+      padding: 100px 0;
+      background-color: white;
+    }
+    
+    .product-showcase {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      margin-top: 60px;
+    }
+    
+    .product-info h3 {
+      font-size: 2rem;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+    
+    .product-features {
+      list-style: none;
+      margin-bottom: 30px;
+    }
+    
+    .product-features li {
+      margin-bottom: 15px;
+      padding-left: 30px;
+      position: relative;
+    }
+    
+    .product-features li::before {
+      content: '✓';
+      color: var(--accent);
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+    
+    .product-image {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    
+    .product-image img {
+      width: 100%;
+      display: block;
+    }
+    
+    /* 客戶評價 */
+    .testimonials {
+      padding: 100px 0;
+      background-color: #f9f9f9;
+    }
+    
+    .testimonial-container {
+      max-width: 800px;
+      margin: 0 auto;
+      margin-top: 60px;
+    }
+    
+    .testimonial-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 20px;
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 20px;
+      color: #555;
+    }
+    
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+    }
+    
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #ddd;
+      margin-right: 15px;
+      overflow: hidden;
+    }
+    
+    .author-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .author-info h4 {
+      font-size: 1.1rem;
+      color: var(--dark);
+    }
+    
+    .author-info p {
+      color: #777;
+      font-size: 0.9rem;
+    }
+    
+    /* CTA 區塊 */
+    .cta {
+      padding: 100px 0;
+      background: linear-gradient(135deg, var(--primary) 0%, #3a7bd5 100%);
+      color: white;
+      text-align: center;
+    }
+    
+    .cta h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    
+    .cta p {
+      max-width: 600px;
+      margin: 0 auto 30px;
+      opacity: 0.9;
+    }
+    
+    .cta-button {
+      background-color: white;
+      color: var(--primary);
+      padding: 15px 40px;
+      border-radius: 4px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+    
+    .cta-button:hover {
+      background-color: var(--light);
+      transform: translateY(-3px);
+    }
+    
+    /* 聯絡區塊 */
+    .contact {
+      padding: 100px 0;
+      background-color: white;
+    }
+    
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    
+    .contact-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+    
+    .contact-details {
+      list-style: none;
+    }
+    
+    .contact-details li {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: flex-start;
+    }
+    
+    .contact-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 15px;
+      fill: var(--primary);
+    }
+    
+    .contact-form {
+      background-color: #f9f9f9;
+      padding: 30px;
+      border-radius: 8px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    
+    textarea.form-input {
+      min-height: 120px;
+      resize: vertical;
+    }
+    
+    .submit-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 4px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .submit-btn:hover {
+      background-color: #2980b9;
+    }
+    
+    /* 頁尾 */
+    footer {
+      background-color: var(--dark);
+      color: white;
+      padding: 60px 0 30px;
+    }
+    
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    
+    .footer-col h4 {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .footer-col h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--primary);
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-links a {
+      color: #bbb;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .social-icon {
+      width: 35px;
+      height: 35px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s;
+    }
+    
+    .social-icon:hover {
+      background-color: var(--primary);
+    }
+    
+    .social-icon svg {
+      width: 18px;
+      height: 18px;
+      fill: white;
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+    
+    /* 響應式設計 */
+    @media (max-width: 992px) {
+      .hero-content, .hero-image {
+        width: 100%;
+      }
+      
+      .hero {
+        height: auto;
+        padding: 150px 0 80px;
+      }
+      
+      .hero-image {
+        position: static;
+        transform: none;
+        margin-top: 40px;
+      }
+      
+      .about-grid, .product-showcase, .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .product-image {
+        order: -1;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .section-header h2, .about-content h2, .cta h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 導航欄 -->
+  <header>
+    <div class="container">
+      <nav>
+        <a href="#" class="logo">
+          <div class="logo-icon"></div>
+          FormFlex
+        </a>
+        <ul class="nav-links">
+          <li><a href="#features">功能特色</a></li>
+          <li><a href="#about">關於我們</a></li>
+          <li><a href="#products">產品介紹</a></li>
+          <li><a href="#testimonials">客戶評價</a></li>
+          <li><a href="#contact">聯絡我們</a></li>
+          <li><a href="#" class="cta-btn">免費試用</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 英雄區塊 -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>打造智能數據流程<br>提升企業效率</h1>
+        <p>FormFlex 萬用表單系統讓企業輕鬆建立、管理和分析各類表單，實現數位化轉型。</p>
+        <div class="hero-btns">
+          <a href="#" class="hero-btn primary-btn">開始使用</a>
+          <a href="#" class="hero-btn secondary-btn">了解更多</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="/api/placeholder/600/400" alt="FormFlex 介面示意圖">
+      </div>
+    </div>
+  </section>
+
+  <!-- 特色區塊 -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2>智能表單解決方案</h2>
+        <p>我們的萬用表單系統為企業提供全方位的數據收集與管理功能</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14h-2v-4h-2v4H8V9h2v2h2V9h2v8z"/>
+            </svg>
+          </div>
+          <h3>拖拽式表單設計</h3>
+          <p>直覺化拖拽界面，無需編程技能即可快速建立專業表單。支援多種欄位類型和驗證規則。</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3z"/>
+            </svg>
+          </div>
+          <h3>雲端儲存與協作</h3>
+          <p>所有數據安全存儲於雲端，支援多人同時協作編輯，確保團隊工作效率和數據安全。</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM8 15c0-1.66 1.34-3 3-3h2c1.66 0 3 1.34 3 3v1H8v-1z"/>
+              <circle cx="12" cy="9" r="2"/>
+            </svg>
+          </div>
+          <h3>用戶友好介面</h3>
+          <p>精心設計的使用者界面，確保填表者輕鬆完成複雜表單，提升填寫率和數據準確性。</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5.97 14.41l-3.08-2.92L17.03 7l1.41 1.42-6.38 6.29 1.97 1.87-1 1.83z"/>
+            </svg>
+          </div>
+          <h3>數據分析與報表</h3>
+          <p>內建多種視覺化報表工具，自動生成圖表和分析結果，幫助企業快速洞察數據價值。</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+            </svg>
+          </div>
+          <h3>資料安全保障</h3>
+          <p>符合國際安全標準的數據加密和權限控制，保護您的敏感資訊免受未授權訪問。</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M19 12h-2v3h-3v2h5v-5zM7 9h3V7H5v5h2V9zm14-6H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16.01H3V4.99h18v14.02z"/>
+            </svg>
+          </div>
+          <h3>系統整合能力</h3>
+          <p>支援與各種企業系統無縫整合，通過API連接CRM、ERP等系統，構建完整數據生態。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 關於區塊 -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image">
+          <img src="/api/placeholder/600/400" alt="關於我們">
+        </div>
+        <div class="about-content">
+          <h2>專注於軟體創新的科技團隊</h2>
+          <p>我們是一家致力於企業數位化轉型的軟體公司，專注於開發高效、易用且安全的企業應用解決方案。</p>
+          <p>創立於2018年，我們的團隊由一群熱衷於技術創新的專業人士組成，擁有豐富的產業經驗和技術背景。</p>
+          <p>我們的使命是通過智能化軟體解決方案，幫助企業提升營運效率、優化業務流程、增強數據價值，從而在數位時代保持競爭優勢。</p>
+          <p>我們的核心價值觀是創新、安全、高效和簡約，這些理念貫穿於我們所有產品的設計和開發過程中。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 產品區塊 -->
+  <section class="products" id="products">
+    <div class="container">
+      <div class="section-header">
+        <h2>我們的產品</h2>
+        <p>FormFlex 萬用表單系統是我們的旗艦產品，為企業提供全方位表單解決方案</p>
+      </div>
+      <div class="product-showcase">
+        <div class="product-info">
+          <h3>FormFlex 萬用表單系統</h3>
+          <ul class="product-features">
+            <li>自定義表單設計器，支援複雜邏輯和條件分支</li>
+            <li>多端支援，電腦、平板和手機均可完美運行</li>
+            <li>智能工作流程，自動觸發通知、審批和數據處理</li>
+            <li>多維度數據分析，一鍵生成專業報表</li>
+            <li>企業級安全控制，精細化權限管理</li>
+            <li>豐富的模板庫，適用於各行業常見場景</li>
+            <li>開放API接口，實現系統間無縫整合</li>
+          </ul>
+          <a href="#" class="hero-btn primary-btn">查看詳情</a>
+        </div>
+        <div class="product-image">
+          <img src="/api/placeholder/600/400" alt="FormFlex 產品界面">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 客戶評價 -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <h2>客戶評價</h2>
+        <p>聽聽我們的客戶如何評價 FormFlex 萬用表單系統</p>
+      </div>
+      <div class="testimonial-container">
+        <div class="testimonial-card">
+          <p class="testimonial-text">"FormFlex 徹底改變了我們的數據收集流程。以前我們使用紙本表格和電子表格，現在所有流程都在一個系統中完成，節省了大量時間和人力成本。數據分析功能讓我們能更快做出決策。"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img src="/api/placeholder/100/100" alt="張總監">
+            </div>
+            <div class="author-info">
+              <h4>張總監</h4>
+              <p>國際物流公司</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <p class="testimonial-text">"作為一家快速成長的科技公司，我們需要一個靈活且可擴展的表單系統。FormFlex 不僅滿足了我們當前的需求，其API整合能力還讓我們能夠將數據與其他系統無縫連接，大大提升了工作效率。"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img src="/api/placeholder/100/100" alt="李經理">
+            </div>
+            <div class="author-info">
+              <h4>李經理</h4>
+              <p>雲端科技新創公司</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <p class="testimonial-text">"我們使用FormFlex管理員工培訓和績效評估流
